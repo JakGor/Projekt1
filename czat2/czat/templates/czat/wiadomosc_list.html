@@ -1,0 +1,79 @@
+{% load staticfiles %}
+<html>
+	<head>
+    		<style>
+			#first {
+   		 		position: relative; left: 30%
+  			}
+			p.standard {
+				 font-family: Georgia, Arial ;
+				 font-size: 30px ;
+				 color: teal;
+				 text-shadow: 1px 1px 15px gray;
+   				 
+  			}
+			
+			p.baner {
+				 font-size: x-large;
+		 		color: teal;
+				 text-shadow: 1px 1px 5px teal;
+   				 position: relative; left: 30%
+  			}
+			p.tytul {
+				 font-family: Verdana, Arial, Georgia ; 
+				 font-size: 50px ;
+				 color: teal;
+				 
+				 text-shadow: 1px 1px 3px silver;
+			}
+ 			.container {
+     			width: 100%;
+    			 background-color: teal;
+  			}
+ 			.content {
+ 			    width: 40%;
+    			 background-color: white;
+      		        }
+   		 </style>	
+	<body bgcolor="white" >
+		<div class="container">
+   			<div class="content">
+    				<p class="baner"> Team <=> Chat</p>
+   			</div>
+		</div>
+		<p class="tytul">Wiadomości</p>
+		{% if messages %}
+			<ul>
+				{% for komunikat in messages %}
+					<li>{{ komunikat|capfirst }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<p class="standard">Historia czatu: </p>
+		<ol>
+			{% for wiadomosc in wiadomosci %}
+			<li>
+				<strong>{{ wiadomosc.autor.username }}</strong> ({{ wiadomosc.data_pub }}):
+				<br /> {{ wiadomosc.tekst}}
+				{% if wiadomosc.autor.username == user.username %}
+					&bull; <a href="{% url 'czat:edytuj' wiadomosc.id %}">Edytuj</a>
+					&bull; <a href="{% url 'czat:usun' wiadomosc.id %}">Usuń</a>
+				{% endif %}
+			</li>
+			{% endfor %}
+		</ol>
+		{% if is_paginated %}
+			<p>
+			{% if page_obj.has_previous %}
+				<a href="?page={{ page_obj.previous_page_number }}">Poprzednie</a>
+			{% endif %}
+			Strona {{ page_obj.number }} z {{ page_obj.paginator.num_pages }}.
+			</span>
+			{% if page_obj.has_next %}
+				<a href="?page={{ page_obj.next_page_number }}">Następne</a>
+			{% endif %}
+			</p>
+		{% endif %} 
+		<p id="first"><a href="{% url 'czat:index' %}"><img src="{% static 'czat/img/strg.png' %}" width="300" title="Strona Główna"/></a></p>
+	</body>
+</html>

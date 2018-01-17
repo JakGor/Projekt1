@@ -1,0 +1,60 @@
+{% load staticfiles %}
+<html>
+	<head>
+    		<style>
+			#first {
+   		 		position: relative; left: 30%
+  			}
+			p.tekst {
+				 font-family:  Arial ;
+				 
+				 color: red;
+				 text-shadow: 1px 1px 10px gray;
+   				 
+  			}
+			p.delete {
+				 font-family: Georgia, Arial ;
+				 font-size: 30px ;
+				 color: red;
+				 text-shadow: 1px 1px 15px red;
+   				 
+  			}
+			p.baner {
+				 font-size: x-large;
+		 		color: teal;
+				 text-shadow: 1px 1px 5px teal;
+   				 position: relative; left: 30%
+  			}
+			p.tytul {
+				 font-family: Verdana, Arial, Georgia ; 
+				 font-size: 50px ;
+				 color: teal;
+				 
+				 text-shadow: 1px 1px 3px silver;
+			}
+ 			.container {
+     			width: 100%;
+    			 background-color: teal;
+  			}
+ 			.content {
+ 			    width: 40%;
+    			 background-color: white;
+      		        }
+   		 </style>	
+  	</head>
+	<body bgcolor="white" >
+		<div class="container">
+   			<div class="content">
+    				<p class="baner"> Team <=> Chat</p>
+   			</div>
+		</div>
+		<p class="tytul">Wiadomości</p>
+		<p class="delete">Usuń wiadomość</p>
+		<form method="POST">
+			{% csrf_token %}
+			<p class="tekst">Czy na pewno chcesz skasować poniższą wiadomość ? <br /><i><p>{{ object }}</p></i></p>
+			<button type="submit">Usuń</button>
+		</form>
+		<p id="first"><a href="{% url 'czat:index' %}"><img src="{% static 'czat/img/strg.png' %}" width="300" title="Strona Główna"/></a></p>
+	</body>
+</html>

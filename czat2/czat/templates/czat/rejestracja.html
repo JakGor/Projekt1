@@ -1,0 +1,54 @@
+{% load staticfiles %}
+<html>
+	<head>
+    		<style>
+			
+	
+			#first {
+   		 		position: relative; left: 30%
+  			}
+	
+			p.baner {
+				 font-size: x-large;
+		 		color: teal;
+				 text-shadow: 1px 1px 5px teal;
+   				 position: relative; left: 30%
+  			}
+			p.tytul {
+				 font-family: Verdana, Arial, Georgia ; 
+				 font-size: 50px ;
+				 color: teal;
+				 
+				 text-shadow: 1px 1px 3px silver;
+			}
+ 			.container {
+     			width: 100%;
+    			 background-color: teal;
+  			}
+ 			.content {
+ 			    width: 40%;
+    			 background-color: white;
+      		        }
+   		 </style>	
+  	</head>
+	<body bgcolor="white" >
+		<div class="container">
+   			<div class="content">
+    				<p class="baner"> Team <=> Chat</p>
+   			</div>
+		</div>
+
+		<p class="tytul">Rejestracja nowego użytkownika</p>
+		{% if user.is_authenticated %}
+			<p>Jesteś już zalogowany jako {{ user.username }}
+			<br /><a href="/">Strona główna</a></p>
+		{% else %}
+			<form method="POST">
+				{% csrf_token %}
+				{{ form.as_p }}
+				<button type="submit">Zarejestruj się</button>
+			</form>
+			<p id="first"><br /><a href="/"><img src="{% static 'czat/img/strg.png' %}" width="300" title="Strona Główna"/></a></p>
+		{% endif %}
+	</body>
+</html>
