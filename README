@@ -1,1 +1,30 @@
 To jest publiczne repo zawierające projekt komunikatora internetowego. Znajduje się on w folderze czat2. 
+Sposób instalacji wersji na własny serwer:
+
+Do zainstalowania własnej wersji aplikacji ( opartej na własnym serwerze) wymagane jest wirtualne środowisko Pythona. Utworzyć je należy w systemie operacyjnym Ubuntu. Aby zainstalować ten system obok Windowsa możemy :
+  •	Użyć programu Oracle VM Virtualbox do stworzenia maszyny wirtualnej:
+     o	Pobierz go stąd: https://www.virtualbox.org/ 
+     o	Stwórz nową maszynę wirtualną
+     o	Zainstaluj na niej system operacyjny Ubuntu. Możesz wypalić go na płytce lub na pamięci flash USB. Oficjalna strona Ubuntu: https://www.ubuntu.com/ Stąd możesz pobrać system.
+     o	Po instalacji systemu na maszynie wirtualnej upewnij się czy posiadasz Pythona w wersji 3, Django 11.2 oraz Interpreter bazy SQLite 3. Brakujące oprogramowanie możesz pobrać poprzez terminal.
+  •	Zainstalować Ubuntu obok Windowsa na dysku:
+     o	Pobierz ze strony głównej Ubuntu system, a później wypal go na płycie lub pamięci flash USB
+     o	Wprowadź nośnik z systemem, a później uruchom ponownie komputer
+     o	W trakcie uruchamiania aktywuj boot menu ( zwykle klawisz f2 lub f12 ) i wybierz Ubuntu z boot options.
+     o	Po instalacji systemu upewnij się czy posiadasz Pythona w wersji 3, Django 11.2 oraz Interpreter bazy SQLite 3. Brakujące oprogramowanie możesz pobrać poprzez terminal.
+Gdy mamy już skonfigurowane Ubuntu tworzymy wirtualne środowisko Pythona za pomocą komendy "virtualenv -p python3 pve3" w terminalu.
+Następnie musisz je aktywować: "source pve3/bin/activate"
+W wirtualnym środowisku pobierz Django: "pip install Django==1.11.2"
+Pobierz ze wskazanego w załączniku repozytorium plik czat2, a następnie wypakuj go w katalogu domowym użytkownika.
+Wydaj w terminalu polecenie: "cd czat2", a następnie "python manage.py check"
+Aplikacja jest gotowa do uruchomienia. Aby zrobić to na  Localhost wpisz w terminal "python manage.py runserver". 
+Jeżeli chcemy przetestować aplikację w realnych warunkach, możemy użyć aplikacji ngrok. Można pobrać ją stąd: https://ngrok.com/ . Po rozpakowaniu, przenosimy ją do folderu znajdującego się w ścieżce: Dysk/usr/local/bin. Aplikację możemy uruchomić  wpisując w terminalu: ngrok . Aby uruchomić serwer demonstracyjny, wpisz ngrok http 8000 . Później w pliku settings.py ( znajduje się on w ścieżce : home/nazwaużytkownika/czat2/czat2 ) w liście ALLOWED_HOSTS wklej adres URL wygenerowany przez ngrok ( sam adres, pomiń protokół). Zapisz zmiany. Po uruchomieniu ( python manage.py runserver ) możesz poprzez adres URL uzyskać dostęp do strony z każdego urządzenia mającego dostęp do sieci. 
+Później każdorazowe uruchomienie serwera opiera się na czterech krokach (wpisywanych w terminalu):
+1) Ustawienie aplikacji ngrok : "ngrok http 8000"
+2) Rozpoczęcie pracy w wirtualnym środowisku : "source pve3/bin/activate"
+3) Otworzenie folderu z projektem: "cd czat2"
+4) Uruchomienie serwera: "python manage.py runserver"
+Pamiętaj, aby po każdym ponownym uruchomieniu serwera ngrok podstawić wygenerowany adres w liście ALLOWED_HOSTS. Adres ten jest zmienny i brak jego uaktualnienia spowoduje brak połączenia z serwerem.
+
+Projekt oparty na materiałach ze stron:  www.kurshtml.edu.pl/html/zielony.html ; how2html.pl ; python101.readthedocs.io . 
+Jakub Górowski
